@@ -1,6 +1,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    private var bytes: String {
+        let value = 123_456_789_012
+        // This adds a suffix like bytes, kB, MB, GB, or TB.
+        return value.formatted(.byteCount(style: .file))
+    }
+
     private var currency: String {
         let price = 1234.567
         // let code = "EUR" // Euros
@@ -109,6 +115,7 @@ struct ContentView: View {
             Text(currency)
             Text(rainfall)
             Text(decimalPlaces)
+            Text(bytes)
         }
         .padding()
     }

@@ -52,9 +52,40 @@ struct ContentView: View {
         )
     }
 
+    private var timeAgo: String {
+        let today = Date()
+        let preceding = today
+            // These methods are defined in DateExtension.swift.
+            // .daysAfter(1)
+            // .daysBefore(33)
+            .daysBefore(8)
+        // .hoursBefore(2)
+        // .hoursAfter(2)
+        // .minutesBefore(34)
+
+        // presentation can be .numeric or .named.
+        //
+        // .numeric produces values like
+        // "3 weeks ago", "3 hours ago", "3 minutes ago",
+        // or "in 3 hours"
+        //
+        // .named produces values like
+        // "last month", "last week", "yesterday", or "tomorrow"
+        //
+        // This only reports hours if one hour or more (rounds to closest)
+        // and only reports minutes if less than one hour.
+        // unitsStyle can be .abbreviated (1 wk. ago), .narrow (1 wk. ago),
+        // .spellOut (one week ago), or .wide (1 week ago).
+        let text = preceding.formatted(
+            .relative(presentation: .numeric, unitsStyle: .abbreviated)
+        )
+        return text
+    }
+
     private var timeBetween: String {
         let today = Date()
-        let preceding = today.hoursBefore(2)
+        let preceding = today
+            .hoursBefore(2)
             .minutesBefore(19) // see DateExtension.swift
         let dateRange = preceding ..< today // cannot use ...
         return dateRange.formatted(.components(style: .wide))
@@ -65,6 +96,7 @@ struct ContentView: View {
             Text(formattedDate)
             Text(daysBetween)
             Text(timeBetween)
+            Text(timeAgo)
             Text(personName)
             Text(currency)
             Text(rainfall)

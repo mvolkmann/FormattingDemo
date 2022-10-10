@@ -23,6 +23,14 @@ struct ContentView: View {
         return dateRange.formatted(.components(style: .wide))
     }
 
+    private var decimalPlaces: String {
+        let value = Double.pi
+        // This rounds to the specified number of decimal places.
+        return value.formatted(
+            .number.precision(.fractionLength(4))
+        )
+    }
+
     private var personName: String {
         var pnc = PersonNameComponents()
         pnc.givenName = "Richard"
@@ -100,6 +108,7 @@ struct ContentView: View {
             Text(personName)
             Text(currency)
             Text(rainfall)
+            Text(decimalPlaces)
         }
         .padding()
     }
